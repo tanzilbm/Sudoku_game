@@ -11,6 +11,10 @@ public class ValueSet : MonoBehaviour
     public void SetText(int value)
     {
         text_ref.text = value.ToString();
+        if (value != -1)
+            text_ref.text = value.ToString();
+        else
+            text_ref.text = "";
     }
 
     public int GetValue()
