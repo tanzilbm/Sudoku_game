@@ -8,7 +8,18 @@ public class Grid : MonoBehaviour
     public GameObject GridBackground;
     public GameObject small_grid;
     private ValueSet[,] arr = new ValueSet[9, 9];
-    private List<List<int>> problem = new List<List<int>>
+    private static Grid instance;
+    public static Grid Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = GameObject.FindObjectOfType<Grid>();
+
+            return instance;
+        }
+    }
+    public List<List<int>> problem = new List<List<int>>
     {
         new List<int>{5, 3, -1, -1, -1, 7, -1, -1, -1},
         new List<int>{6, -1, -1, 1, 9, 5, -1, -1, -1},
@@ -28,7 +39,10 @@ public class Grid : MonoBehaviour
             for (int j = 0; j < 9; j++)
             {
                 arr[i, j] = Instantiate(small_grid, Vector3.zero, Quaternion.identity, GridBackground.transform).GetComponent<ValueSet>();
-                arr[i, j].SetText(problem[i][j]);
+                arr[i, j].setIJ(i, j);
+                if (problem[i][j] != -1)
+                    arr[i, j].DisableField();
+                arr[i, j].SetText(problem[i][j]);               
             }
         }
     }
