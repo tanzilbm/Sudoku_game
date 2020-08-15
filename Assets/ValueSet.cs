@@ -40,10 +40,20 @@ public class ValueSet : MonoBehaviour
             int firstRowIndexOfGrid = i - (i % 3);
             int firstColumnIndexOfGrid = j - (j % 3);
             List<int> gridValues = new List<int>();
+            var rowValues = new List<int>();
+            var columnValues = new List<int>();
             for (var l = firstRowIndexOfGrid; l < firstRowIndexOfGrid + 3; l++)
                 for (var m = firstColumnIndexOfGrid; m < firstColumnIndexOfGrid + 3; m++)
                     gridValues.Add(Grid.Instance.problem[l][m]);
-            if (!gridValues.Contains(numberEntered))
+            for (var l = 0; l < 9; l++)
+            {
+                rowValues.Add(Grid.Instance.problem[i][l]);               
+            }
+            for (var m = 0; m < 9; m++)
+            {
+                columnValues.Add(Grid.Instance.problem[m][j]);
+            }
+            if (!gridValues.Contains(numberEntered)&&!rowValues.Contains(numberEntered)&&!columnValues.Contains(numberEntered))
                 Grid.Instance.problem[i][j] = numberEntered;
             else if (!text_ref.interactable) { }
             else
